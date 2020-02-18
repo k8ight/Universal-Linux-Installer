@@ -1,7 +1,7 @@
 # Debian-Cli-Installer
 A sh script based debian or other supported linux live cd/usb installer 
 
-#if on CLI use "su -" to access root 
+#if fdisk not found error accurd on CLI use "su -" to access root 
 
 #make the script executable using $ chmod +777 ./installer.sh
 
