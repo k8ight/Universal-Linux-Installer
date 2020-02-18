@@ -1,7 +1,7 @@
 # Debian-Cli-Installer
 A sh script based debian or other supported linux live cd/usb installer 
 
-#inf on CLI use "su -" to access root 
+#if on CLI use "su -" to access root 
 #make the script executable using # chmod 777 ./installer.sh
 
 #then include it on ur live cd/dvd 's /usr/bin or on or /root /home dir
