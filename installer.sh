@@ -53,10 +53,10 @@ mount --bind --make-rslave /dev /mnt/ddrive/dev
 mount --bind --make-rslave /proc /mnt/ddrive/proc
 mount --bind --make-rslave /sys /mnt/ddrive/sys
 chroot /mnt/ddrive /bin/bash -c "locale-gen --purge en_US.UTF-8"
+chroot /mnt/ddrive /bin/bash -c "update-initramfs -u"
 chroot /mnt/ddrive /bin/bash -c "apt update"
 chroot /mnt/ddrive /bin/bash -c "apt install grub2 -y"
 chroot /mnt/ddrive /bin/bash -c "grub-install $diskname"
-chroot /mnt/ddrive /bin/bash -c "update-initramfs -u"
 echo "set root password [y/n]:"
 read inputp
 if [[ $inputp == "Y" || $inputp == "y" ]]; then
