@@ -1,4 +1,7 @@
 #!/bin/bash
+echo "deb http://deb.debian.org/debian stable main" >> /etc/apt/sources.list
+apt update
+apt install -y fdisk parted
 mkdir /mnt/idrive
 mkdir /mnt/ddrive
 mount /dev/loop0 /mnt/idrive
