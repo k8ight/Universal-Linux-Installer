@@ -14,3 +14,5 @@ then follow the instruction
 #it is advised to use /dev/sda or /dev/sdXXX on disk select
 
 #This instaler install data on entire disk does not support partitioning  to support partioning modify installer.sh
+
+#script does not support to create external users modify it to support it
