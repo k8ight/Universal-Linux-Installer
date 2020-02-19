@@ -68,4 +68,15 @@ if [[ $inputp == "Y" || $inputp == "y" ]]; then
 else
         echo "Root Password Default to user root password toor"
 fi
+echo "Create non-admin User:[Y/n]"
+read inputu
+if [[ $inputu == "Y" || $inputu == "y" ]]; then
+ echo "Enter username:"
+ read usn
+   chroot /mnt/ddrive /bin/bash -c "adduser $usn"
+   chroot /mnt/ddrive /bin/bash -c "usermod -G sudo,netdev $usn"
+    chroot /mnt/ddrive /bin/bash -c "passwd $usn"
+else
+        echo "No Local non-admin user has created!!"
+fi
 echo "installation done reboot to continue using your new intall root password toor if not set !!"
