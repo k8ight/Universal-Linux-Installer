@@ -17,6 +17,5 @@ then follow the instruction
 
 #This instaler install data on entire disk does not support partitioning  to support partioning modify installer.sh
 
-#script does not support to create external users modify it to support it
 
 #installer does not setup networks so you need to do it manually.
