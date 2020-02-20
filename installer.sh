@@ -77,7 +77,7 @@ if [[ $inputu == "Y" || $inputu == "y" ]]; then
  read usn
    chroot /mnt/ddrive /bin/bash -c "adduser $usn"
    chroot /mnt/ddrive /bin/bash -c "usermod -G sudo,netdev $usn"
-    chroot /mnt/ddrive /bin/bash -c "passwd $usn"
+   
 else
         echo "No Local non-admin user has created!!"
 fi
