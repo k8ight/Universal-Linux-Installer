@@ -27,7 +27,8 @@ parted -a opt $diskname mkpart primary ext4 0% 100%
 mkfs.ext4 -L debian $diskname"1"
 parted $diskname set 1 boot on
 mount $diskname"1" /mnt/ddrive 
-
+mount -f $diskname"1" /mnt/ddrive  
+mount $diskname"1" /mnt/ddrive 
 echo "Copy filesystem to target ? [Y,n]"
 read input
 if [[ $input == "Y" || $input == "y" ]]; then
