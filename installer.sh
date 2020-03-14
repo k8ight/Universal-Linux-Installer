@@ -1,4 +1,5 @@
 #!/bin/bash
+export PS1="\e[1;32m[\u@\h \W]\$ \e[m "
 echo "deb http://deb.debian.org/debian stable main" >> /etc/apt/sources.list
 apt update
 apt install -y fdisk parted
