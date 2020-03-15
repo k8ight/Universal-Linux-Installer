@@ -1,6 +1,8 @@
 # Debian-Cli-Installer
 A sh script based debian or other supported linux live cd/usb installer 
+
 #getting the fil : wget https://git.io/JviPo
+
 #if fdisk not found error accurd on CLI use "su -" to access root 
 
 #make the script executable using $ chmod +777 ./installer.sh
