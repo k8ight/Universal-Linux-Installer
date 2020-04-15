@@ -1,4 +1,4 @@
-# Debian-Cli-Installer
+# Universal-Linux-Installer
 A sh script based debian or other supported linux live cd/usb installer 
 
 #getting the file : wget https://git.io/uli.sh
