@@ -16,7 +16,7 @@ read diskname
 
 umount -f $diskname"1"
 umount -f $diskname
-
+wipefs -a $diskname
 
 
 echo "Select partition scheme GPT or msdos (GPT is to be used for ufi & newer os| for MBR scheme on older os and windows  use msdos):"
