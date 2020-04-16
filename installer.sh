@@ -22,10 +22,10 @@ umount -f $diskname
 echo "Select partition scheme GPT or msdos (GPT is to be used for ufi & newer os| for MBR scheme on older os and windows  use msdos):"
 echo "select Partition Size[minimum 4GB required and mention GB after the number press enter for Full Drive install]:"
 read psize
-if [$psize == "" ]; then
+if [ -z "$psize" ] then
     $mksize="100%"
 else
-    $mksize=$psize    
+    $mksize="$psize"    
 fi
 parted $diskname mklabel $psc 
 parted -a opt $diskname mkpart primary ext4  0% $mksize
