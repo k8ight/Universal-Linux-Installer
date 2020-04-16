@@ -21,3 +21,4 @@ then follow the instruction
 
 
 # installer does  setup networks under DHCP .
+# IF local repo not set manually on the Installer, it requires internet connection
