@@ -54,7 +54,8 @@ blkid -s UUID -o value $diskname"1" > ui.dat
 value="$(cat ./ui.dat)"
 echo "UUID="$value"  /           ext4   noatime 0 1"  > /mnt/ddrive/etc/fstab
 echo "Setting fstab Done!"
-echo "deb http://deb.debian.org/debian/ stable main contrib non-free" > /mnt/ddrive/etc/apt/sources.list
+echo "deb http://deb.debian.org/debian/ buster main contrib non-free" > /mnt/ddrive/etc/apt/sources.list
+echo "deb http://deb.debian.org/debian/ bullseye main contrib non-free" >> /mnt/ddrive/etc/apt/sources.list
 echo "Setting sources Done!"
 echo "nameserver 8.8.8.8" > /mnt/ddrive/etc/resolv.conf
 echo $'[Match]\nName=en*\n[Network]\nDHCP=yes'>/mnt/ddrive/etc/systemd/network/dhcp.network
