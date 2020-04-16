@@ -24,7 +24,7 @@ read psc
 echo "select Partition Size[minimum 4GB required and mention GB after the number press enter for Full Drive install]:"
 read psize
 parted $diskname mklabel $psc
-if [ -z "$psize" ] then
+if [ -z "$psize" ]; then
     parted -a opt $diskname mkpart primary ext4  0% 100%
 else
   parted -a opt $diskname mkpart primary ext4  0% $psize  
