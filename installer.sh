@@ -20,6 +20,7 @@ wipefs -a $diskname
 
 
 echo "Select partition scheme GPT or msdos (GPT is to be used for ufi & newer os| for MBR scheme on older os and windows  use msdos):"
+read psc
 echo "select Partition Size[minimum 4GB required and mention GB after the number press enter for Full Drive install]:"
 read psize
 parted $diskname mklabel $psc
