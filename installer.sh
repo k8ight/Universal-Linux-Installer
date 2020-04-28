@@ -2,7 +2,7 @@
 export PS1="\e[1;32m[\u@\h \W]\$ \e[m "
 echo "deb http://deb.debian.org/debian stable main" >> /etc/apt/sources.list
 apt update
-apt install -y fdisk parted
+apt install -y fdisk parted 
 mkdir /mnt/idrive
 mkdir /mnt/ddrive
 mount /dev/loop0 /mnt/idrive
@@ -10,37 +10,28 @@ fdisk -l
 
 
 
-echo "SELECT DRIVE TO INSTALL (like /dev/sdX  & do not select /dev/loop*) all data will be destroyed:"
+echo "SELECT DRIVE TO CREATE OR EDIT PARTITION (like /dev/sdX  & do not select /dev/loop*) all data will be destroyed:"
 
 read diskname
 
 umount -f $diskname"1"
 umount -f $diskname
-wipefs -a $diskname
+cfdisk $diskname
+fdisk -l
+echo "SELECT Partition to COPY OS DATA:"
+read pname
 
 
-echo "Select partition scheme GPT or msdos (GPT is to be used for ufi & newer os| for MBR scheme on older os and windows  use msdos):"
-read psc
-echo "select Partition Size[minimum 4GB required and mention GB after the number press enter for Full Drive install]:"
-read psize
-parted $diskname mklabel $psc
-if [ -z "$psize" ]; then
-    parted -a opt $diskname mkpart primary ext4  0% 100%
-else
-  parted -a opt $diskname mkpart primary ext4  0% $psize  
-fi
- 
-
-mkfs.ext4 -L debian $diskname"1"
+mkfs.ext4 -L debian $pname
 parted $diskname set 1 boot on
-mount $diskname"1" /mnt/ddrive 
-mount -f $diskname"1" /mnt/ddrive   
+mount  $pname /mnt/ddrive 
+mount -f $pname  /mnt/ddrive   
 
 echo "Copy filesystem to target ? [Y,n]"
 read input
 if [[ $input == "Y" || $input == "y" ]]; then
         echo "Copying File system"
-mount $diskname"1" /mnt/ddrive 
+mount  $pname /mnt/ddrive 
 cp -av /mnt/idrive/* /mnt/ddrive
 
 echo "Copying File system Done!"
