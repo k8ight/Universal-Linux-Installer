@@ -16,6 +16,8 @@ read diskname
 
 umount -f $diskname"1"
 umount -f $diskname
+wipefs -f -a  $diskname
+
 cfdisk $diskname
 fdisk -l
 echo "SELECT Partition to COPY OS DATA:"
@@ -23,7 +25,6 @@ read pname
 
 
 mkfs.ext4 -L debian $pname
-parted $diskname set 1 boot on
 mount  $pname /mnt/ddrive 
 mount -f $pname  /mnt/ddrive   
 
