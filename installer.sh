@@ -10,7 +10,7 @@ fdisk -l
 
 
 
-echo "SELECT DRIVE TO CREATE OR EDIT PARTITION (like /dev/sdX  & do not select /dev/loop*) all data will be destroyed:"
+echo "SELECT DRIVE TO CREATE OR EDIT PARTITION (like /dev/sdX  & do not select /dev/loop*) & SET partition BOOTABLE:"
 
 read diskname
 
