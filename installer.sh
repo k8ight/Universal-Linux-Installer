@@ -41,7 +41,7 @@ exit
 fi
 
 
-blkid -s UUID -o value $diskname"1" > ui.dat
+blkid -s UUID -o value $pname > ui.dat
 value="$(cat ./ui.dat)"
 echo "UUID="$value"  /           ext4   noatime 0 1"  > /mnt/ddrive/etc/fstab
 echo "Setting fstab Done!"
