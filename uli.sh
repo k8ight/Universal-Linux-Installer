@@ -1,4 +1,5 @@
 #!/bin/bash
+export PS1="\e[1;32m[\u@\h \W]\$ \e[m "
 echo "deb http://deb.debian.org/debian stable main" >> /etc/apt/sources.list
 apt update
 apt install -y fdisk parted
@@ -15,15 +16,22 @@ read diskname
 
 umount -f $diskname"1"
 umount -f $diskname
-
+dd if=/dev/zero of=$diskname bs=512  count=1
+wipefs -a $diskname
 
 
 echo "Select partition scheme GPT or msdos (GPT is to be used for ufi & newer os| for MBR scheme on older os and windows  use msdos):"
-
 read psc
+echo "select Partition Size[minimum 4GB required and mention GB after the number press enter for Full Drive install]:"
+read psize
+parted $diskname mklabel $psc
+if [ -z "$psize" ]; then
+    parted -a opt $diskname mkpart primary ext4  0% 100%
+else
+  parted -a opt $diskname mkpart primary ext4  0% $psize  
+fi
+ 
 
-parted $diskname mklabel $psc 
-parted -a opt $diskname mkpart primary ext4 0% 100%
 mkfs.ext4 -L debian $diskname"1"
 parted $diskname set 1 boot on
 mount $diskname"1" /mnt/ddrive 
@@ -47,9 +55,11 @@ blkid -s UUID -o value $diskname"1" > ui.dat
 value="$(cat ./ui.dat)"
 echo "UUID="$value"  /           ext4   noatime 0 1"  > /mnt/ddrive/etc/fstab
 echo "Setting fstab Done!"
-echo "deb http://deb.debian.org/debian/ stable main contrib non-free" > /mnt/ddrive/etc/apt/sources.list
+echo "deb http://deb.debian.org/debian/ buster main contrib non-free" > /mnt/ddrive/etc/apt/sources.list
+echo "deb http://deb.debian.org/debian/ bullseye main contrib non-free" >> /mnt/ddrive/etc/apt/sources.list
 echo "Setting sources Done!"
 echo "nameserver 8.8.8.8" > /mnt/ddrive/etc/resolv.conf
+echo $'[Match]\nName=en*\n[Network]\nDHCP=yes'>/mnt/ddrive/etc/systemd/network/dhcp.network
 echo "Setting apt Sources Done!"
 cp /etc/locale.gen /mnt/ddrive/etc/locale.gen
 cp /etc/default/locale /mnt/ddrive/etc/default/locale
@@ -81,15 +91,7 @@ if [[ $inputu == "Y" || $inputu == "y" ]]; then
 else
         echo "No Local non-admin user has created!!"
 fi
-echo "Install Kernel 5.5.5 and runtime deps[required]? [y/n]:"
-read inputk
-if [[ $inputk == "Y" || $inputk == "y" ]]; then
-   chroot /mnt/ddrive /bin/bash -c "dpkg -i ./installer/*.deb"
 
-else
-        echo "Kernel Version installed Debian_stable "
-fi
-rm /mnt/ddrive/installer/installer.sh
 chroot /mnt/ddrive /bin/bash -c "update-initramfs -u"
 rmdir /mnt/ddrive/installer
 echo "installation done reboot to continue using your new intall root password toor if not set !!"
