@@ -1,11 +1,12 @@
 #!/bin/bash
+
 export PS1="\e[1;32m[\u@\h \W]\$ \e[m "
 echo "deb http://deb.debian.org/debian stable main" >> /etc/apt/sources.list
 apt update
 apt install -y fdisk parted
 mkdir /mnt/idrive
 mkdir /mnt/ddrive
-mount /dev/loop0 /mnt/idrive
+mount -t squashfs -o loop ./filesystem.squashfs /mnt/idrive
 fdisk -l
 
 
@@ -50,10 +51,14 @@ else
 exit
 fi
 
-
+echo $diskname
 blkid -s UUID -o value $diskname"1" > ui.dat
+blkid -s UUID -o value $diskname"1" > ui.dat
+
+sleep 1
+
 value="$(cat ./ui.dat)"
-echo "UUID="$value"  /           ext4   noatime 0 1"  > /mnt/ddrive/etc/fstab
+echo "UUID="$value" /           ext4   noatime 0 1"  > /mnt/ddrive/etc/fstab
 echo "Setting fstab Done!"
 echo "deb http://deb.debian.org/debian/ buster main contrib non-free" > /mnt/ddrive/etc/apt/sources.list
 echo "deb http://deb.debian.org/debian/ bullseye main contrib non-free" >> /mnt/ddrive/etc/apt/sources.list
@@ -72,7 +77,7 @@ chroot /mnt/ddrive /bin/bash -c "apt update"
 chroot /mnt/ddrive /bin/bash -c "apt install ntfs-3g -y"
 chroot /mnt/ddrive /bin/bash -c "apt install grub2 -y"
 chroot /mnt/ddrive /bin/bash -c "grub-install $diskname"
-echo "set root password [y/n]:"
+echo "set root password (also web admin)[y/n]:"
 read inputp
 if [[ $inputp == "Y" || $inputp == "y" ]]; then
    chroot /mnt/ddrive /bin/bash -c "passwd root"
@@ -94,4 +99,4 @@ fi
 
 chroot /mnt/ddrive /bin/bash -c "update-initramfs -u"
 rmdir /mnt/ddrive/installer
-echo "installation done reboot to continue using your new intall root password toor if not set !!"
+echo "installation done reboot to continue using your new install, root password toor if not set !!"
