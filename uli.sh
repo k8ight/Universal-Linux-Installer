@@ -43,7 +43,7 @@ read input
 if [[ $input == "Y" || $input == "y" ]]; then
         echo "Copying File system"
 mount $diskname"1" /mnt/ddrive 
-rsync -axHAWXS --numeric-ids --info=progress2 /mnt/idrive /mnt/ddrive
+rsync -axHAWXS --numeric-ids --info=progress2 /mnt/idrive/ /mnt/ddrive
 
 echo "Copying File system Done!"
 else
