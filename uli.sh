@@ -71,6 +71,9 @@ cp /etc/default/locale /mnt/ddrive/etc/default/locale
 mount --bind --make-rslave /dev /mnt/ddrive/dev
 mount --bind --make-rslave /proc /mnt/ddrive/proc
 mount --bind --make-rslave /sys /mnt/ddrive/sys
+
+sleep 1
+
 chroot /mnt/ddrive /bin/bash -c "locale-gen --purge en_US.UTF-8"
 chroot /mnt/ddrive /bin/bash -c "update-initramfs -u"
 chroot /mnt/ddrive /bin/bash -c "apt update"
