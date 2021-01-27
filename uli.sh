@@ -3,7 +3,7 @@
 export PS1="\e[1;32m[\u@\h \W]\$ \e[m "
 echo "deb http://deb.debian.org/debian stable main" >> /etc/apt/sources.list
 apt update
-apt install -y fdisk parted
+apt install -y fdisk parted rsync
 mkdir /mnt/idrive
 mkdir /mnt/ddrive
 mount -t squashfs -o loop ./filesystem.squashfs /mnt/idrive
@@ -43,7 +43,7 @@ read input
 if [[ $input == "Y" || $input == "y" ]]; then
         echo "Copying File system"
 mount $diskname"1" /mnt/ddrive 
-cp -av /mnt/idrive/* /mnt/ddrive
+rsync -axHAWXS --numeric-ids --info=progress2 /mnt/idrive /mnt/ddrive
 
 echo "Copying File system Done!"
 else
