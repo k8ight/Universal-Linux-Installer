@@ -58,7 +58,7 @@ blkid -s UUID -o value $diskname"1" > ui.dat
 sleep 1
 
 value="$(cat ./ui.dat)"
-echo "UUID="$value" /           ext4   noatime 0 1"  > /mnt/ddrive/etc/fstab
+echo "UUID="$value"          /       ext4   defaults  0   1"  > /mnt/ddrive/etc/fstab
 echo "Setting fstab Done!"
 echo "deb http://deb.debian.org/debian/ buster main contrib non-free" > /mnt/ddrive/etc/apt/sources.list
 echo "deb http://deb.debian.org/debian/ bullseye main contrib non-free" >> /mnt/ddrive/etc/apt/sources.list
