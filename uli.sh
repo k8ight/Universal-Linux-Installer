@@ -80,6 +80,8 @@ chroot /mnt/ddrive /bin/bash -c "apt update"
 chroot /mnt/ddrive /bin/bash -c "apt install ntfs-3g -y"
 chroot /mnt/ddrive /bin/bash -c "apt install grub2 -y"
 chroot /mnt/ddrive /bin/bash -c "grub-install $diskname"
+chroot /mnt/ddrive /bin/bash -c "grub-mkconfig"
+chroot /mnt/ddrive /bin/bash -c "update-grub2"
 echo "set root password (also web admin)[y/n]:"
 read inputp
 if [[ $inputp == "Y" || $inputp == "y" ]]; then
